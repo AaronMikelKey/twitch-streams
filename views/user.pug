@@ -1,0 +1,18 @@
+extends layout
+
+block content
+	h1= title
+	p Welcome #{username}
+	br
+	each val, key in user
+		each v,k in val
+			h2= v.user_name 
+			h3= v.title 
+			p Now Streaming #{v.game_name}
+			- let imgSource = v.thumbnail_url
+			- let imgSource2 = imgSource.replace('{width}', '200')
+			- let imgSource3 = imgSource2.replace('{height}', '100')
+			img(src=imgSource3)
+			p= v.thumbnail_url
+			p Viewers: #{v.viewer_count}
+	a(href='/') Home
