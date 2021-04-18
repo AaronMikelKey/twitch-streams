@@ -1,3 +1,10 @@
+@font-face {
+	font-family: 'twitch';
+	src: url('./public/css/fonts/Twitchyotf.otf') format('OpenType'),
+			url('./public/css/fonts/Twitchytff.ttf') format('TrueType');
+}
+
 h1 {
 	color: red;
+	font-family: 'twitch';
 }

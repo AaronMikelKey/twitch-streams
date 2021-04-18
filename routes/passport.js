@@ -41,7 +41,7 @@ passport.use('twitch', new OAuth2Strategy({
 router.get('/twitch', passport.authenticate('twitch', { scope: 'user_read' }));
 
 // Set route for OAuth redirect
-router.get('/twitch/callback', passport.authenticate('twitch', { successRedirect: '/user', failureRedirect: '/' }));
+router.get('/twitch/callback', passport.authenticate('twitch', { successRedirect: '/login', failureRedirect: '/' }));
 
 
 
