@@ -6,11 +6,9 @@ const express = require('express');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
-const OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 const logger = require('morgan')
-const fetch = require('node-fetch')
 
-
+// routes
 const indexRouter = require('./routes/index')
 const authRouter = require('./routes/passport');
 
@@ -20,22 +18,14 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// Define twitch api constants
-const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
-const TWITCH_SECRET = process.env.TWITCH_SECRET;
 const SESSION_SECRET = process.env.SESSION_SECRET;
-const CALLBACK_URL = process.env.CALLBACK_URL;  // You can run locally with - http://localhost:3000/auth/twitch/callback
-// These two don't really need to be kept secret since it's part of the public twitch API
-// methods but just in case we need to use them more than once it makes it easier to reference
-const AUTHORIZATION_URL = process.env.AUTHORIZATION_URL
-const TOKEN_URL = process.env.TOKEN_URL
 
 // Initialize Express and middlewares
 app.use(logger('dev'))
 app.use(express.json())
 app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }));
 app.use('/css', express.static(path.join(__dirname, '/css')));
-app.use(cookieParser())
+app.use(cookieParser(SESSION_SECRET))
 app.use(passport.initialize());
 app.use(passport.session());
 

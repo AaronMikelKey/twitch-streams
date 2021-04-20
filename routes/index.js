@@ -1,5 +1,4 @@
 require('dotenv').config()
-const { json } = require('express');
 const express = require('express');
 const router = express.Router();
 const fetch = require('node-fetch')
@@ -13,7 +12,7 @@ router.get('/', function (req, res, next) {
   if (req.session.passport) {
     passport = true
     //check for login data to show logout button
-    if (req.cookies.userData) {
+    if (req.signedCookies.userData) {
       loggedIn = true
     }
   }
@@ -36,7 +35,7 @@ router.get('/login', async function (req, res, next) {
   // Also converts JSON response to a string
   dataRes = JSON.stringify(dataRes, ['id','display_name'])
   // Sets cookie with the resulting user_id and display_name
-  res.cookie('userData', dataRes, {expires: new Date(Date.now() + 7200000)}).redirect('/user')
+  res.cookie('userData', dataRes, {expires: new Date(Date.now() + 7200000), signed: true}).redirect('/user')
 })
 
 //GET user page.  Shows twitch follows and their stream info if they are live now.
@@ -45,9 +44,9 @@ router.get('/user', async function(req,res,next) {
   let passport = false
   //User is logged in if they see this page so no need to check.
   let loggedIn = true
-  if (req.session.passport && req.cookies.userData) {
+  if (req.session.passport && req.signedCookies.userData) {
     passport = true
-  let userData = JSON.parse(req.cookies.userData) 
+  let userData = JSON.parse(req.signedCookies.userData) 
   let username = userData.display_name
   let userID = userData.id
   let followArr = []
@@ -78,7 +77,6 @@ router.get('/user', async function(req,res,next) {
         arr2.push(s[k].user_name)
     }
     let res = arr.filter(item => arr2.indexOf(item) == -1)
-    console.log('\n res \n'+res+'\n')
     return ([res, streamingNow.data])
   }
 
@@ -106,6 +104,7 @@ router.get('/user', async function(req,res,next) {
 
   streamList()
     .then(data => res.render('user', { title: 'Twitch Subs Userpage', username: username, streaming: data[1], offline: data[0], passport: passport, loggedIn: loggedIn }))
+    .catch(err => next(err))
 } else {
   res.redirect('/')
 }
