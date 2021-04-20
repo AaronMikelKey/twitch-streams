@@ -35,7 +35,7 @@ router.get('/login', async function (req, res, next) {
   // Also converts JSON response to a string
   dataRes = JSON.stringify(dataRes, ['id','display_name'])
   // Sets cookie with the resulting user_id and display_name
-  res.cookie('userData', dataRes, {expires: new Date(Date.now() + 7200000), signed: true}).redirect('/user')
+  res.cookie('userData', dataRes, {expires: new Date(Date.now() + 7200000), signed: true, httpOnly: true, secure: true }).redirect('/user')
 })
 
 //GET user page.  Shows twitch follows and their stream info if they are live now.

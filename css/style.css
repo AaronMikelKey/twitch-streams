@@ -101,7 +101,10 @@ a:hover {
 	font-size: 2.5em;
 	background: #9146FF;
 }
-.title { grid-area: title; }
+.title { 
+	grid-area: title;
+	font-size: 1em;
+}
 .game { grid-area: game; }
 .viewers { grid-area: viewers; }
 
