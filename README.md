@@ -5,6 +5,7 @@ This is a simple project I made to show a little info about your twitch follows 
 If you would like to try this yourself, you will need to visit the [Twitch Developer website](https://dev.twitch.tv) and create an account. Create a new app and get the following:
 
 | key | value |
+| ----------- | ----------- |
 | **TWITCH_CLIENT_ID** | provided by twitch |
 | **TWITCH_SECRET** | provided by twitch |
 | **CALLBACK_URL** | set by you e.g. `localhost:3000/auth/callback` |
