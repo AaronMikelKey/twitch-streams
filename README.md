@@ -2,7 +2,7 @@
 
 This is a simple project I made to show a little info about your twitch follows that are streaming. If you have any follows that are streaming now it will show their name, stream title, viewer count, and a thumbnail of the stream.
 
-If you would like to try this yourself, you will need to visit the [https://dev.twitch.tv](Twitch Developer website) and create an account. Create a new app and get the following:
+If you would like to try this yourself, you will need to visit the [Twitch Developer website](https://dev.twitch.tv) and create an account. Create a new app and get the following:
 
 | key | value |
 | **TWITCH_CLIENT_ID** | provided by twitch |
@@ -20,4 +20,4 @@ If you would like to log in to another account, you will have to visit Twitch.tv
 
 This website uses cookies to store non-sensitive information like your twitch username and user_id, but is not stored on a database or sent to anyone other than Twitch to access their API.
 
-This was built using expressJS and the twitch API. (https://github.com/AaronMikelKey/twitch-streams)[You can find the repo here.]
+This was built using expressJS and the twitch API. [You can find the repo here.](https://github.com/AaronMikelKey/twitch-streams)
