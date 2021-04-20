@@ -7,10 +7,21 @@ const fetch = require('node-fetch')
 
 // If user has an authenticated session, display it, otherwise display link to authenticate
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Twitch Subs', user: JSON.stringify(req.session), link:'/auth/twitch', cssLink:'../css/style.css' })   
+  let passport = false
+  let loggedIn = false
+  //check for session
+  if (req.session.passport) {
+    passport = true
+    //check for login data to show logout button
+    if (req.cookies.userData) {
+      loggedIn = true
+    }
+  }
+  res.render('index', { title: 'Twitch Subs', user: JSON.stringify(req.session.passport), passport: passport, loggedIn: loggedIn })   
 });
 
 // GET user data from twitch, only need id and display_name
+// There are no links to this route, it's the callback from logging in with passport
 router.get('/login', async function (req, res, next) {
   let dataRes = await fetch('https://api.twitch.tv/helix/users', {
       method: 'GET',
@@ -28,7 +39,14 @@ router.get('/login', async function (req, res, next) {
   res.cookie('userData', dataRes, {expires: new Date(Date.now() + 7200000)}).redirect('/user')
 })
 
+//GET user page.  Shows twitch follows and their stream info if they are live now.
 router.get('/user', async function(req,res,next) {
+  //check for session
+  let passport = false
+  //User is logged in if they see this page so no need to check.
+  let loggedIn = true
+  if (req.session.passport && req.cookies.userData) {
+    passport = true
   let userData = JSON.parse(req.cookies.userData) 
   let username = userData.display_name
   let userID = userData.id
@@ -60,7 +78,7 @@ router.get('/user', async function(req,res,next) {
         arr2.push(s[k].user_name)
     }
     let res = arr.filter(item => arr2.indexOf(item) == -1)
-    console.log('\n res \n'+res)
+    console.log('\n res \n'+res+'\n')
     return ([res, streamingNow.data])
   }
 
@@ -87,7 +105,10 @@ router.get('/user', async function(req,res,next) {
       )
 
   streamList()
-    .then(data => res.render('user', { title: 'Twitch Subs Userpage', username: username, streaming: data[1], offline: data[0] }), res.redirect('/'))
-})
+    .then(data => res.render('user', { title: 'Twitch Subs Userpage', username: username, streaming: data[1], offline: data[0], passport: passport, loggedIn: loggedIn }))
+} else {
+  res.redirect('/')
+}
+}) 
 
 module.exports = router;

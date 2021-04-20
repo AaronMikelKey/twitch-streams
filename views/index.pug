@@ -1,8 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  br
-  p #{user}
-  a(href=link) Log In to Twitch
+  div(id='content')
+    h1= title
+    p Welcome to #{title}
+    br
+    p #{user}
+    br
+    p This is a simple project I made to show a little info about your twitch follows that are streaming. If you have any follows that are streaming now it will show their name, stream title, viewer count, and a thumbnail of the stream.

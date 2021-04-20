@@ -1,18 +1,27 @@
 extends layout
 
 block content
-	h1= title
-	p Welcome #{username}
-	br
+	div(id='content')
+		h1 Streaming Now
+		div(class='streaming-now')
+			each val, key in streaming
+				div(class='streamer-on')
+					h2(class='name')
+						a(href='https://twitch.tv/'+val.user_name target='_blank') #{val.user_name}
+					h3(class='title') Title: #{val.title}
+					p(class='game') Now Streaming: #{val.game_name}
+					p(class='viewers') Viewers: #{val.viewer_count}
+					- let imgSource = val.thumbnail_url
+					- let imgSource2 = imgSource.replace('{width}', '267')
+					- let imgSource3 = imgSource2.replace('{height}', '150')
+					a(href='https://twitch.tv/'+val.user_name target='_blank' class='image')
+						img(src=imgSource3)
+			div(class='offline')
+				h1 Offline
 
-	each val, key in streaming
-			h2= val.user_name 
-			h3= val.title 
-			p Now Streaming #{val.game_name}
-			- let imgSource = val.thumbnail_url
-			- let imgSource2 = imgSource.replace('{width}', '200')
-			- let imgSource3 = imgSource2.replace('{height}', '100')
-			img(src=imgSource3)
-			p Viewers: #{val.viewer_count}
-	p= offline
-	a(href='/') Home
+				-console.log(offline)
+				
+				each val of offline
+					div(class='streamer-off')
+						a(href='https://twitch.tv/'+val target='_blank')
+							h2(class='name') #{val}

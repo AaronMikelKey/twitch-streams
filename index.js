@@ -34,7 +34,7 @@ const TOKEN_URL = process.env.TOKEN_URL
 app.use(logger('dev'))
 app.use(express.json())
 app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/css', express.static(path.join(__dirname, '/css')));
 app.use(cookieParser())
 app.use(passport.initialize());
 app.use(passport.session());
@@ -50,8 +50,12 @@ passport.deserializeUser(function (user, done) {
 	done(null, user);
 });
 
-
 app.use('/auth', authRouter)
+
+app.get('/logout', function(req, res){
+  req.logout();
+	res.clearCookie('userData').redirect('/');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

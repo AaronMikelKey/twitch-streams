@@ -1,0 +1,17 @@
+nav
+	div(class='navbar-brand') Twitch Subs
+
+	if username
+		div(class='navbar-name') Welcome, #{username}
+
+	if loggedIn
+		div(class='nav-link')
+			a(href='/logout') Logout
+		div(class='nav-link')
+			a(href='/user') Streamers
+	else 
+		div(class='nav-link')
+			a(href='/auth/twitch') Login to Twitch
+
+	div(class='nav-link')
+		a(href='/') Home
