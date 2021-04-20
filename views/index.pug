@@ -5,6 +5,23 @@ block content
     h1= title
     p Welcome to #{title}
     br
-    p This is a simple project I made to show a little info about your twitch follows that are streaming. If you have any follows that are streaming now it will show their name, stream title, viewer count, and a thumbnail of the stream.
+    p 
+      |This is a simple project I made to show a little info about your twitch follows
+      | that are streaming. If you have any follows that are streaming now it will show
+      | their name, stream title, viewer count, and a thumbnail of the stream.  To begin,
+      | click the Login to Twitch button on the top right.  If you are already logged in 
+      | at Twitch.tv it will redirect you to the streamer page.  If not, you will be directed
+      | to Twitch.tv to log in, and then returned to the streamer page.
+
+    p 
+      |If you would like to log in to another account, you will have to visit Twitch.tv and 
+      | log out from your account there, then either log in to your other account, or come back
+      | here and log in.
+
+    p 
+      |This website uses cookies to store non-sensitive information like your twitch 
+      |username and user_id, but is not stored on a database or sent to anyone other than 
+      |Twitch to access their API.
+
     p This was built using expressJS and the twitch API.  
       a(href='https://github.com/AaronMikelKey/twitch-streams' target='_blank' style='color: blue !important; text-decoration: underline !important;') You can find the repo here.
