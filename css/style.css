@@ -18,6 +18,7 @@ html, body {
 
 #content {
 	margin: 10px;
+	margin-top: 50px;
 }
 
 nav {
@@ -26,6 +27,8 @@ nav {
 	background-color: #9146FF;
 	color: white;
 	text-align: initial;
+	position: fixed;
+	top: 0;
 }
 
 .navbar-brand {
@@ -42,6 +45,7 @@ nav {
 	margin: 0 0 0 10px;
 	padding: 0;
 	display: inline-block;
+	line-height: 50px;
 }
 
 .nav-link {
@@ -111,5 +115,42 @@ a:hover {
 .streamer-off {
 	width: 80%;
 	margin: 10px auto;
+}
+
+@media screen and (max-width: 767px) {
+	.streamer-on {
+		height: 300px;
+		width: 90%;
+		grid-template-areas:
+    "name name name"
+    "title title title"
+    "title title title"
+    "game game game"
+    "viewers viewers viewers";
+	}
+	.name {
+		font-size: 2em;
+	}
+	.title {
+		font-size: 0.8em;
+	}
+	.streamer-off {
+		width: 90%;
+	}
+	.image {
+		display: none;
+	}
+	nav {
+		height: 100px;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+	}
+	#content {
+		margin-top: 100px;
+	}
+	.navbar-brand, .navbar-name, .nav-link {
+		height: 50%;
+	}
 }
 /* Twitch Purple - #9146FF */
